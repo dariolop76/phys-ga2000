@@ -100,7 +100,7 @@ eigenvalues, eigenvectors = np.linalg.eig(C)
 # Plotting the first 5 eigenvectors
 for i in range(5):
     plt.figure(figsize=(9,6))
-    plt.plot(logwave, np.real(eigenvectors[i]), label = f'Eigenvector {i+1}')
+    plt.plot(logwave, np.real(eigenvectors[:,i]), label = f'Eigenvector {i+1}')
     plt.xlabel(r"$\log_{10}(\lambda)$")
     plt.ylabel('Eigenvector value')
 
@@ -149,10 +149,12 @@ print("Condition number of residuals matrix: ", svd_condition_number)
 Nc = 5
 
 # Computing the coefficients
-coefficients=np.dot(residuals,svd_eigenvectors)
+coefficients = np.dot(residuals, eigenvectors)
+#coefficients=np.dot(residuals,svd_eigenvectors.T)
 
 # Evaluting the approximate spectra
-approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], svd_eigenvectors[:, :Nc].T))
+#approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], svd_eigenvectors[:, :Nc].T))
+approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], eigenvectors[:, :Nc].T))
 
 
 # Plotting data 
@@ -206,8 +208,10 @@ rms_values=[]
 for Nc in np.arange(1,21):
     sq_res=0
     
-    approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], svd_eigenvectors[:, :Nc].T))
+    #approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], svd_eigenvectors[:, :Nc].T))
+    approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], eigenvectors[:, :Nc].T))
     
+
     for i in np.arange(len(flux[0])): # we do this for galaxy # 1
         sq_res+=np.square(flux[0][i]-approx_spectra[0][i])
     
