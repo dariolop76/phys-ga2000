@@ -150,10 +150,9 @@ Nc = 5
 
 # Computing the coefficients
 coefficients = np.dot(residuals, eigenvectors)
-#coefficients=np.dot(residuals,svd_eigenvectors.T)
+
 
 # Evaluting the approximate spectra
-#approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], svd_eigenvectors[:, :Nc].T))
 approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], eigenvectors[:, :Nc].T))
 
 
@@ -208,7 +207,6 @@ rms_values=[]
 for Nc in np.arange(1,21):
     sq_res=0
     
-    #approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], svd_eigenvectors[:, :Nc].T))
     approx_spectra = flux_integrals[:, np.newaxis] * (mean_flux[:, np.newaxis] + np.dot(coefficients[:, :Nc], eigenvectors[:, :Nc].T))
     
 
