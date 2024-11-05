@@ -16,7 +16,7 @@ plt.figure(figsize=(9,6))
 
 plt.plot(x, data, marker = '.', markersize = 0.1, color = 'b')
 
-plt.xlabel("Year")
+plt.xlabel("Time since 2006 (days)")
 plt.ylabel("Daily closing value ($)")
 
 plt.savefig("prob_3_data.png")
