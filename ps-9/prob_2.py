@@ -1,6 +1,7 @@
 # PS9 -- Dario Loprete -- dl5521@nyu.edu
 # Problem 2
 
+
 # imported packages
 import numpy as np
 import matplotlib.pyplot as plt
